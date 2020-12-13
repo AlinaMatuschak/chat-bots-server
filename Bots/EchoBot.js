@@ -1,4 +1,4 @@
-const getDate = require("../helpers/getDate");
+const createMessage = require("../helpers/createMessage");
 
 const EchoBot = {
   id: 'EchoBot',
@@ -11,12 +11,7 @@ const EchoBot = {
 }
 
 const EchoBotGenerateMessage = (text, recipient) => {
-  return {
-    sender: EchoBot.id,
-    recipient,
-    text,
-    date: getDate(),
-  };
+  return createMessage(EchoBot.id, recipient, text);
 }
 
 module.exports = { EchoBot, EchoBotGenerateMessage };

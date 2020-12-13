@@ -1,16 +1,11 @@
 const botSendMessage = require("../Bots/botSendMessage");
 const { EVENT_RECEIVE_MESSAGE, EVENT_SEND_MESSAGE } = require("../events");
-const getDate = require("../helpers/getDate");
+const createMessage = require("../helpers/createMessage");
 const saveValue = require("../helpers/saveValue");
 
 function receiveMessage(socket, user, users) {
   socket.on(EVENT_RECEIVE_MESSAGE, ({ text, recipient }) => {
-    const newMessage = {
-      sender: user.id,
-      recipient: recipient.id,
-      text,
-      date: getDate(),
-    };
+    const newMessage = createMessage(user.id, recipient.id, text);
 
     saveValue(user.messages, newMessage);
 
@@ -25,12 +20,7 @@ function receiveMessage(socket, user, users) {
 
       saveValue(recipientMessages, newMessage);
 
-      socket.to(recipient.id).emit(EVENT_SEND_MESSAGE, {
-        sender: user.id,
-        recipient: recipient.id,
-        text,
-        date: getDate(),
-      });
+      socket.to(recipient.id).emit(EVENT_SEND_MESSAGE, newMessage);
     }
   });
 };

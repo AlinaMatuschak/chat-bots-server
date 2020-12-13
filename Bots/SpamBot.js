@@ -1,5 +1,5 @@
 const { EVENT_SEND_MESSAGE } = require("../events");
-const getDate = require("../helpers/getDate");
+const createMessage = require("../helpers/createMessage");
 const getRandomLink = require("../helpers/getRandomLink");
 const saveValue = require("../helpers/saveValue");
 
@@ -13,12 +13,7 @@ const SpamBot = {
 }
 
 const spamBotStartSendMessage = (socket, user) => {
-  const message = {
-    sender: SpamBot.id,
-    recipient: user.id,
-    text: getRandomLink(),
-    date: getDate(),
-  };
+  const message = createMessage(SpamBot.id, user.id, getRandomLink());
   const randomInterval = Math.random() * (120000 - 10000) + 10000;
 
   setTimeout(() => {

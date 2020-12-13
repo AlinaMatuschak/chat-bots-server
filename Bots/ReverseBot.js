@@ -1,4 +1,4 @@
-const getDate = require("../helpers/getDate");
+const createMessage = require("../helpers/createMessage");
 
 const ReverseBot = {
   id: 'ReverseBot',
@@ -10,12 +10,9 @@ const ReverseBot = {
 }
 
 const ReverseBotGenerateMessage = (text, recipient) => {
-  return {
-    sender: ReverseBot.id,
-    recipient,
-    text: [...text].reverse().join(''),
-    date: getDate(),
-  };
+  const botText = [...text].reverse().join('');
+
+  return createMessage(ReverseBot.id, recipient, botText);
 }
 
 module.exports = { ReverseBot, ReverseBotGenerateMessage };
