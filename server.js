@@ -9,7 +9,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
   cors: {
-    origin: location.origin,
+    // origin: `http://localhost:3001`,
     credentials: true,
   },
 });
